@@ -90,7 +90,7 @@ make_gridpack () {
     MGBASEDIR=mgbasedir
     
     MG_EXT=".tar.gz"
-    MG=MG5_aMC_v2.6.5$MG_EXT
+    MG=MG5_aMC_v2.7.0.py3$MG_EXT
     MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
     
     MGBASEDIRORIG=$(echo ${MG%$MG_EXT} | tr "." "_")
@@ -127,7 +127,8 @@ make_gridpack () {
       #############################################
       #Copy, Unzip and Delete the MadGraph tarball#
       #############################################
-      wget --no-check-certificate ${MGSOURCE}
+      # wget --no-check-certificate ${MGSOURCE}
+      cp $PRODHOME/${MG} .
       tar xzf ${MG}
       rm "$MG"
     
@@ -137,7 +138,7 @@ make_gridpack () {
     
       cd $MGBASEDIRORIG
       cat $PRODHOME/patches/*.patch | patch -p1
-      cp -r $PRODHOME/PLUGIN/CMS_CLUSTER/ PLUGIN/ 
+      # cp -r $PRODHOME/PLUGIN/CMS_CLUSTER/ PLUGIN/ 
       # Intended for expert use only!
       if ls $CARDSDIR/${name}*.patch; then
         echo "    WARNING: Applying custom user patch. I hope you know what you're doing!"
@@ -156,7 +157,8 @@ make_gridpack () {
         echo "set output_dependencies internal" >> mgconfigscript
       fi
     #  echo "set output_dependencies internal" >> mgconfigscript
-      echo "set lhapdf $LHAPDFCONFIG" >> mgconfigscript
+      echo "set lhapdf_py2 $LHAPDFCONFIG" >> mgconfigscript
+      echo "set lhapdf_py3 $LHAPDFCONFIG" >> mgconfigscript
     #   echo "set ninja $PWD/HEPTools/lib" >> mgconfigscript
     
       if [ "$queue" == "local" ]; then
@@ -167,13 +169,13 @@ make_gridpack () {
       
           echo "set run_mode  1" >> mgconfigscript
           if [ "$queue" == "condor" ]; then
-            echo "set cluster_type cms_condor" >> mgconfigscript
+            echo "set cluster_type condor" >> mgconfigscript
             echo "set cluster_queue None" >> mgconfigscript
           elif [ "$queue" == "condor_spool" ]; then
-            echo "set cluster_type cms_condor_spool" >> mgconfigscript
+            echo "set cluster_type condor_spool" >> mgconfigscript
             echo "set cluster_queue None" >> mgconfigscript
           else
-            echo "set cluster_type cms_lsf" >> mgconfigscript
+            echo "set cluster_type lsf" >> mgconfigscript
             #*FIXME* broken in mg_amc 2.4.0
     #         echo "set cluster_queue $queue" >> mgconfigscript
           fi 
@@ -266,11 +268,11 @@ make_gridpack () {
        elif [ "$queue" == "condor" ]; then
          echo "cluster_queue = None" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
          echo "run_mode = 1" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
-         echo "cluster_type = cms_condor" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+         echo "cluster_type = condor" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
        elif [ "$queue" == "condor_spool" ]; then
          echo "cluster_queue = None" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
          echo "run_mode = 1" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
-         echo "cluster_type = cms_condor_spool" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+         echo "cluster_type = condor_spool" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
        fi
     
       # Previous cluster_local_path setting  gets erased after
@@ -502,13 +504,13 @@ make_gridpack () {
       echo "cleaning temporary output"
       mv $WORKDIR/processtmp/pilotrun_gridpack.tar.gz $WORKDIR/
       mv $WORKDIR/processtmp/Events/pilotrun/unweighted_events.lhe.gz $WORKDIR/
-      rm -rf processtmp
+      # rm -rf processtmp  # easy for debugging
       mkdir process
       cd process
       echo "unpacking temporary gridpack"
       tar -xzf $WORKDIR/pilotrun_gridpack.tar.gz
       echo "cleaning temporary gridpack"
-      rm $WORKDIR/pilotrun_gridpack.tar.gz
+      # rm $WORKDIR/pilotrun_gridpack.tar.gz
       
       # precompile reweighting if necessary
       if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
@@ -598,7 +600,7 @@ if [ -n "$5" ]
   then
     scram_arch=${5}
   else
-    scram_arch=slc6_amd64_gcc630 #slc6_amd64_gcc481
+    scram_arch=slc6_amd64_gcc700 #slc6_amd64_gcc630 #slc6_amd64_gcc481
 fi
 
 # Require OS and scram_arch to be consistent
@@ -612,7 +614,7 @@ if [ -n "$6" ]
   then
     cmssw_version=${6}
   else
-    cmssw_version=CMSSW_9_3_16 #CMSSW_7_1_30
+    cmssw_version=CMSSW_10_5_0 #CMSSW_9_3_16 #CMSSW_7_1_30
 fi
  
 # jobstep can be 'ALL','CODEGEN', 'INTEGRATE', 'MADSPIN'
