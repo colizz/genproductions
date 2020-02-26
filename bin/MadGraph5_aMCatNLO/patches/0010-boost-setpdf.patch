@@ -8,7 +8,7 @@ diff --git a/Template/LO/Source/.make_opts b/Template/LO/Source/.make_opts
 index 30da110..430c038 100644
 --- a/Template/LO/Source/.make_opts
 +++ b/Template/LO/Source/.make_opts
-@@ -96,6 +96,7 @@ endif
+@@ -100,6 +100,7 @@ endif
  
  ifneq ($(lhapdf),)
    CXXFLAGS += $(shell $(lhapdf) --cppflags)
@@ -20,7 +20,7 @@ diff --git a/Template/LO/Source/PDF/pdf_lhapdf6.cc b/Template/LO/Source/PDF/pdf_
 index 35b34d5..77daf67 100644
 --- a/Template/LO/Source/PDF/pdf_lhapdf6.cc
 +++ b/Template/LO/Source/PDF/pdf_lhapdf6.cc
-@@ -12,6 +12,11 @@
+@@ -16,6 +16,11 @@
  #include "LHAPDF/Version.h"
  #include "LHAPDF/LHAGlue.h"
  
@@ -36,7 +36,7 @@ diff --git a/Template/NLO/Source/PDF/pdf_lhapdf6.cc b/Template/NLO/Source/PDF/pd
 index 35b34d5..77daf67 100644
 --- a/Template/NLO/Source/PDF/pdf_lhapdf6.cc
 +++ b/Template/NLO/Source/PDF/pdf_lhapdf6.cc
-@@ -12,6 +12,11 @@
+@@ -16,6 +16,11 @@
  #include "LHAPDF/Version.h"
  #include "LHAPDF/LHAGlue.h"
  

@@ -2,7 +2,7 @@ diff --git a/Template/LO/Source/.make_opts b/Template/LO/Source/.make_opts
 index caec32b..96a598e 100644
 --- a/Template/LO/Source/.make_opts
 +++ b/Template/LO/Source/.make_opts
-@@ -114,4 +114,4 @@
+@@ -118,4 +118,4 @@
  # Helper function to check MG5 version
  define CHECK_MG5AMC_VERSION
  python -c 'import re; from distutils.version import StrictVersion; print StrictVersion("$(MG5AMC_VERSION)") >= StrictVersion("$(1)") if re.match("^[\d\.]+$$","$(MG5AMC_VERSION)") else True;'
@@ -27,7 +27,7 @@ diff --git a/madgraph/iolibs/export_v4.py b/madgraph/iolibs/export_v4.py
 index 276e78d..a05916f 100755
 --- a/madgraph/iolibs/export_v4.py
 +++ b/madgraph/iolibs/export_v4.py
-@@ -498,6 +498,9 @@ class ProcessExporterFortran(VirtualExporter):
+@@ -522,6 +522,9 @@ class ProcessExporterFortran(VirtualExporter):
           LHAPath='%(path)s/../lhapdf/pdfsets/'
           Inquire(File=LHAPath, exist=exists)
           if(exists)return  
@@ -71,4 +71,4 @@ index 95b0f49..b06677d 100644
 +      Character LHAPath*250,up*3
        data up/'../'/
        logical exists
-       integer i
+       integer i, pos
