@@ -1,0 +1,91 @@
+diff --git a/Template/LO/bin/generate_events b/Template/LO/bin/generate_events
+index df61ad9..c4ffeb4 100755
+--- a/Template/LO/bin/generate_events
++++ b/Template/LO/bin/generate_events
+@@ -27,7 +27,7 @@ import time
+ root_path = os.path.split(os.path.dirname(os.path.realpath( __file__ )))[0]
+ pjoin = os.path.join
+ 
+-if sys.version_info[1] < 7:
++if sys.version_info[1] < 6:
+     sys.exit('MadEvent works with python 2.7/3.7 or higher.\n\
+                Please upgrade your version of python.')
+ 
+diff --git a/Template/LO/bin/internal/Gridpack/gridrun b/Template/LO/bin/internal/Gridpack/gridrun
+index eceac6b..a8e0650 100755
+--- a/Template/LO/bin/internal/Gridpack/gridrun
++++ b/Template/LO/bin/internal/Gridpack/gridrun
+@@ -19,7 +19,7 @@
+ and call immediately the command line interface scripts"""
+ 
+ import sys
+-if sys.version_info[1] < 7:
++if sys.version_info[1] < 6:
+     sys.exit('MadGraph/MadEvent 5 works only with python 2.7/3.7 or later.\n\
+                Please upgrate your version of python.')
+ 
+diff --git a/Template/LO/bin/madevent b/Template/LO/bin/madevent
+index e58cde2..2c11978 100755
+--- a/Template/LO/bin/madevent
++++ b/Template/LO/bin/madevent
+@@ -19,7 +19,7 @@
+ and call immediately the command line interface scripts"""
+ 
+ import sys
+-if sys.version_info[1] < 7:
++if sys.version_info[1] < 6:
+     sys.exit('MadGraph/MadEvent 5 works only with python 2.7/3.7 or later.\n\
+                Please upgrate your version of python.')
+ 
+diff --git a/Template/NLO/bin/aMCatNLO b/Template/NLO/bin/aMCatNLO
+index 30bc3a9..b18c4df 100755
+--- a/Template/NLO/bin/aMCatNLO
++++ b/Template/NLO/bin/aMCatNLO
+@@ -19,7 +19,7 @@
+ and call immediately the command line interface scripts"""
+ 
+ import sys
+-if   sys.version_info[1] < 7:
++if   sys.version_info[1] < 6:
+     sys.exit('MadGraph/aMCatNLO 5 works only with python 2.7/3.7 or later .\n\
+                Please upgrate your version of python.')
+ 
+diff --git a/Template/NLO/bin/calculate_xsect b/Template/NLO/bin/calculate_xsect
+index 14f6f0a..dcd7b99 100755
+--- a/Template/NLO/bin/calculate_xsect
++++ b/Template/NLO/bin/calculate_xsect
+@@ -28,7 +28,7 @@ pjoin = os.path.join
+ sys.path.append(pjoin(root_path,'bin','internal'))
+ import amcatnlo_run_interface as run      
+ 
+-if sys.version_info[1] < 7:
++if sys.version_info[1] < 6:
+     sys.exit('MadEvent works with python 2.7/3.7 or higher.\n\
+                Please upgrade your version of python.')
+ 
+diff --git a/Template/NLO/bin/generate_events b/Template/NLO/bin/generate_events
+index 7a44d5f..1702837 100755
+--- a/Template/NLO/bin/generate_events
++++ b/Template/NLO/bin/generate_events
+@@ -28,7 +28,7 @@ pjoin = os.path.join
+ sys.path.append(pjoin(root_path,'bin','internal'))
+ import amcatnlo_run_interface as run      
+ 
+-if sys.version_info[1] < 7:
++if sys.version_info[1] < 6:
+     sys.exit('MadEvent works with python 2.7/3.7 or higher.\n\
+                Please upgrade your version of python.')
+ 
+diff --git a/bin/mg5_aMC b/bin/mg5_aMC
+index ef12aaf..e9c4f8a 100755
+--- a/bin/mg5_aMC
++++ b/bin/mg5_aMC
+@@ -22,7 +22,7 @@ start = time.time()
+ and call immediately the command line interface scripts"""
+ 
+ import sys
+-if  sys.version_info[1] < 7:
++if  sys.version_info[1] < 6:
+     sys.exit('MadGraph5_aMC@NLO works only with python 2.7 or python 3.7 (and later).\n\
+                Please upgrate your version of python.')
+ try:
