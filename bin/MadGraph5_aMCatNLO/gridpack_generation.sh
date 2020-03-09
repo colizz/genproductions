@@ -145,6 +145,7 @@ make_gridpack () {
         cat $CARDSDIR/${name}*.patch | patch -p1
       fi
     
+      export LHAPDF_DATA_PATH="/home/pku/licq/utils/lhapdf/lhapdf-install/share/LHAPDF" # reload the path to py3 version of LHAPDF
       LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
     
       LHAPDFINCLUDES=`$LHAPDFCONFIG --incdir`
@@ -319,7 +320,7 @@ make_gridpack () {
       else
         LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
       fi
-    
+   
       #make sure env variable for pdfsets points to the right place
       export LHAPDF_DATA_PATH=`$LHAPDFCONFIG --datadir`  
       
@@ -600,7 +601,7 @@ if [ -n "$5" ]
   then
     scram_arch=${5}
   else
-    scram_arch=slc6_amd64_gcc700 #slc6_amd64_gcc630 #slc6_amd64_gcc481
+    scram_arch=slc6_amd64_gcc630 #slc6_amd64_gcc481
 fi
 
 # Require OS and scram_arch to be consistent
