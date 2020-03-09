@@ -1,0 +1,48 @@
+=== modified file 'madgraph/interface/amcatnlo_run_interface.py'
+--- a/madgraph/interface/amcatnlo_run_interface.py
+2020-02-27 11:14:44 +0000
++++ b/madgraph/interface/amcatnlo_run_interface.py
+2020-03-07 20:35:20 +0000
+@@ -930,7 +930,8 @@
+         self.check_available_module(opt['mother_interface'].options)
+         self.last_mode = opt['mother_interface'].last_mode
+         self.proc_characteristics = opt['mother_interface'].proc_characteristics
+-        self.run_card = banner_mod.RunCard(pjoin(self.me_dir,'Cards', 'run_card.dat'))
++        self.run_card = banner_mod.RunCard(pjoin(self.me_dir,'Cards', 'run_card.dat'),
++                                           consistency='warning')
+         super(AskRunNLO,self).__init__(self.to_control, opt['mother_interface'],
+                                      *args, **opt)
+
+@@ -4522,7 +4523,6 @@
+             if line:
+                 newfile.write(line.replace(line.split()[0], line.split()[0] + '.rwgt') + '\n')
+         newfile.close()
+-
+         return self.pdf_scale_from_reweighting(evt_files,evt_wghts)
+
+     def pdf_scale_from_reweighting(self, evt_files,evt_wghts):
+@@ -4590,7 +4590,7 @@
+
+         # check if we can use LHAPDF to compute the PDF uncertainty
+         if any(self.run_card['reweight_pdf']):
+-            lhapdf = misc.import_python_lhapdf()
++            lhapdf = misc.import_python_lhapdf(self.options['lhapdf'])
+             if lhapdf:
+                 use_lhapdf = True
+             else:
+
+=== modified file 'madgraph/interface/extended_cmd.py'
+--- a/madgraph/interface/extended_cmd.py
+2020-02-27 11:14:44 +0000
++++ b/madgraph/interface/extended_cmd.py
+2020-03-07 19:50:17 +0000
+@@ -2808,7 +2808,7 @@
+                          for k in self.inconsistent_details.values() for c in k
+                          if c['changed_key'] != key]
+
+-        to_check.sort(lambda x, y: -1 if self.last_changed.index(x[0])>self.last_changed.index(y[0]) else 1)
++        to_check.sort(key=lambda x: self.last_changed.index(x[0]))
+
+         # validate tmp_switch.
+         to_check = [(key, value)] + to_check
+

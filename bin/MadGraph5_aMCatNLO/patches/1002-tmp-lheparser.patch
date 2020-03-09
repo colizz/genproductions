@@ -1,0 +1,19 @@
+diff --git a/madgraph/various/lhe_parser.py b/madgraph/various/lhe_parser.py
+index 885ef36..bcf9a16 100755
+--- a/madgraph/various/lhe_parser.py
++++ b/madgraph/various/lhe_parser.py
+@@ -946,8 +947,11 @@ class MultiEventFile(EventFile):
+         if across == 0:
+             # No event linked to this channel -> so no need to include it
+             return 
+-        misc.gzip(path)
+-        obj = EventFile(path+'.gz')
++        if not path.endswith('.gz'):
++            misc.gzip(path)
++            obj = EventFile(path+'.gz')
++        else:
++            obj = EventFile(path)
+         obj.eventgroup = self.eventgroup 
+         if len(self.files) == 0 and not self.banner:
+             self.banner = obj.banner
+
