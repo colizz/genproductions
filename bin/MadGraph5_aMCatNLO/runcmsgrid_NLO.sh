@@ -46,6 +46,7 @@ cd $LHEWORKDIR
 cd process
 
 #make sure lhapdf points to local cmssw installation area
+export LHAPDF_DATA_PATH="/home/pku/licq/utils/lhapdf/lhapdf-install/share/LHAPDF" # reload the path to py3 version of LHAPDF
 LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
 
 echo "lhapdf_py2 = $LHAPDFCONFIG" >> ./Cards/amcatnlo_configuration.txt
